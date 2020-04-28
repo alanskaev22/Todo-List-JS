@@ -3,8 +3,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 app.set("view engine", "ejs");
-
 app.use(bodyParser.urlencoded({ extended: true }));
+
+let today = new Date();
+let newItems = [];
+let newItem = "";
+let currentDate = "";
 
 app.get("/", function (req, res) {
   const options = {
@@ -13,16 +17,15 @@ app.get("/", function (req, res) {
     month: "long",
   };
 
-  let today = new Date();
+  currentDate = today.toLocaleDateString("en-US", options);
 
-  let currentDate = today.toLocaleDateString("en-US", options);
-
-  res.render("list", { currentDate: currentDate });
+  res.render("list", { currentDate: currentDate, newItems: newItems });
 });
 
 app.post("/", (postReq, postRes) => {
-  let newItem = postReq.body.newItem;
-  console.log(newItem);
+  newItem = postReq.body.newItem;
+  newItems.push(newItem);
+  postRes.redirect("/");
 });
 
 app.listen(3000, () => {
