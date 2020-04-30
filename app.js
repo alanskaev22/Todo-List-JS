@@ -18,10 +18,13 @@ const Endpoints = {
 };
 
 // Mongo Connection
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://Admin:Alan_Admin@todocluster-okiac.mongodb.net/todolistDB",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const itemsSchema = {
   name: {
