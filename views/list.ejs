@@ -9,13 +9,14 @@
 </div>
 
 <div class="box">
-    <% for (var item = 0; item < newItems.length; item++) { %>
+    <% newItems.forEach( item =>{ %>
+        <form action="<%= deleteEndpoint %>" method="post">
     <div class="item">
-        <input type="checkbox">
-        <p><%= newItems[item] %></p>
+        <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
+        <p><%= item.name %></p>
     </div>
-        <% } %>
-
+        </form>
+<% }) %>
 
     <form class="item" action="<%= endpoint %>" method="post">
         <input type="text" name="newItem" placeholder="Add New Item" autocomplete="off" autofocus>
