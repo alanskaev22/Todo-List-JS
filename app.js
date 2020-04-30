@@ -1,11 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+// Endpoints
+const Endpoints = {
+  HOMEPAGE: "/",
+  WORK: "/work",
+  ABOUT: "/about",
+  DELETE: "/delete",
+  CUSTOMLISTNAME: "/:customListName",
+};
 
 // Mongo Connection
 mongoose.connect("mongodb://localhost:27017/todolistDB", {
@@ -20,15 +30,13 @@ const itemsSchema = {
   },
 };
 
-// Endpoints
-const Endpoints = {
-  HOMEPAGE: "/",
-  WORK: "/work",
-  ABOUT: "/about",
-  DELETE: "/delete",
+const listSchema = {
+  name: String,
+  items: [itemsSchema],
 };
 
 const Item = mongoose.model("Item", itemsSchema);
+const List = mongoose.model("List", listSchema);
 
 const item1 = new Item({
   name: "Welcome to your Todo list!",
@@ -78,19 +86,69 @@ app.post(Endpoints.HOMEPAGE, (postReq, postRes) => {
   postRes.redirect(Endpoints.HOMEPAGE);
 });
 
-app.post(Endpoints.WORK, (req, res) => {
-  newItem = req.body.newItem;
-  res.redirect(Endpoints.WORK);
+app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
+  const customListName = _.capitalize(req.params.customListName);
+
+  List.findOne({ name: customListName }, (err, results) => {
+    if (!err) {
+      if (!results) {
+        console.log(`List ${customListName} doesn't exist. Creating one...`);
+        const list = new List({
+          name: customListName,
+          items: defaultItems,
+        });
+        list.save();
+        res.redirect(`/${customListName}`);
+      } else {
+        res.render("list", {
+          listTitle: `${customListName} List`,
+          newItems: results.items,
+          endpoint: `/${customListName}`,
+          deleteEndpoint: Endpoints.DELETE,
+        });
+      }
+    }
+  });
 });
 
 app.post(Endpoints.DELETE, (req, res) => {
   let checkedItemId = req.body.checkbox;
-  Item.findByIdAndDelete(checkedItemId, (err) => {
+  const redirectURL = req.headers.referer;
+  let route = redirectURL.replace("http://localhost:3000", "");
+
+  if (route === "/") {
+    Item.findByIdAndDelete(checkedItemId, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`SUCCESSFULLY DELETED ITEM WITH ID ${checkedItemId}`);
+        res.redirect(route);
+      }
+    });
+  } else {
+    let customeListName = route.replace("/", "");
+    List.findOneAndUpdate(
+      { name: customeListName },
+      { $pull: { items: { _id: checkedItemId } } },
+      (err, results) => {
+        if (!err) {
+          res.redirect(route);
+        }
+      }
+    );
+  }
+});
+
+app.post(Endpoints.CUSTOMLISTNAME, (req, res) => {
+  newItem = req.body.newItem;
+  const customListName = req.params.customListName;
+  List.findOne({ name: customListName }, (err, results) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(`SUCCESSFULLY DELETED ITEM WITH ID ${checkedItemId}`);
-      res.redirect(Endpoints.HOMEPAGE);
+      results.items.push({ name: newItem });
+      results.save();
+      res.redirect(`/${customListName}`);
     }
   });
 });
@@ -98,6 +156,7 @@ app.post(Endpoints.DELETE, (req, res) => {
 app.get(Endpoints.ABOUT, (req, res) => {
   res.render("about");
 });
+
 // Run on port
 app.listen(3000, () => {
   console.log("Server running on port 3000");
