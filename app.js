@@ -104,7 +104,7 @@ app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
         res.redirect(`/${customListName}`);
       } else {
         res.render("list", {
-          listTitle: `${customListName} List`,
+          listTitle: `${_.capitalize(customListName)} List`,
           newItems: results.items,
           endpoint: `/${customListName}`,
           deleteEndpoint: Endpoints.DELETE,
