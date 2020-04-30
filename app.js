@@ -48,7 +48,7 @@ const item2 = new Item({
   name: "Click ➕ to add new Item",
 });
 const item3 = new Item({
-  name: "👈rsSelect this checkbox to delete an item",
+  name: "👈 Select this checkbox to delete an item",
 });
 
 const defaultItems = [item1, item2, item3];
