@@ -117,6 +117,7 @@ and (orientation : portrait) {
     -webkit-appearance: none;
   }
   button{
+    -webkit-border-radius:0;
     display: block;
     -webkit-appearance: none;
   }
