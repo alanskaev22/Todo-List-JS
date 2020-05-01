@@ -110,17 +110,20 @@ and (orientation : portrait) {
   html {
     -webkit-appearance: none;
     max-width: 100%;
+    min-height: 100vh;
   }
 
   .box {
     max-width: 100%;
     -webkit-appearance: none;
+
   }
 
   input[type="text"] {
     max-width: 90%;
     -webkit-appearance: none;
   }
+
   input[type="text"]:focus {
     outline: none;
     box-shadow: none;
