@@ -109,6 +109,7 @@ and (orientation : portrait) {
 
   html {
     -webkit-appearance: none;
+    max-width: 100%;
   }
 
   .box {
