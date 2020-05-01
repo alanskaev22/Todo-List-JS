@@ -110,4 +110,8 @@ and (orientation : portrait) {
   input[type="text"] {
     max-width: 85%;
   }
+  button{
+
+    -webkit-appearance: none;
+  }
 }
