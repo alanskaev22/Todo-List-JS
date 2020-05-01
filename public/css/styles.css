@@ -180,8 +180,9 @@ and (orientation: portrait) {
         -webkit-appearance: none;
 
     }
-    html,input{
+    html,input, input[type="checkbox"]{
         -webkit-appearance: none;
+        appearance: none;
     }
 }
 
