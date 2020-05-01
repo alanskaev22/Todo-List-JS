@@ -180,6 +180,9 @@ and (orientation: portrait) {
         -webkit-appearance: none;
 
     }
+    html,input{
+        -webkit-appearance: none;
+    }
 }
 
 /*  button{*/
