@@ -105,9 +105,9 @@ and (min-device-width : 375px)
 and (max-device-width : 667px)
 and (orientation : portrait) {
   .box{
-    max-width: 250px;
+    max-width: 100%;
   }
   input[type="text"] {
-    max-width: 250px;
+    max-width: 85%;
   }
 }
