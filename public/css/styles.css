@@ -104,11 +104,17 @@ input[type="text"]:focus {
 and (min-device-width : 375px)
 and (max-device-width : 667px)
 and (orientation : portrait) {
+
+  html{
+    -webkit-appearance: none;
+  }
   .box{
     max-width: 100%;
+    -webkit-appearance: none;
   }
   input[type="text"] {
     max-width: 85%;
+    -webkit-appearance: none;
   }
   button{
 
