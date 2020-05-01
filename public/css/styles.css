@@ -99,3 +99,15 @@ input[type="text"]:focus {
   margin-bottom: 5%;
   color:#00a8cc ;
 }
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px)
+and (orientation : portrait) {
+  .box{
+    max-width: 250px;
+  }
+  input[type="text"] {
+    max-width: 250px;
+  }
+}
