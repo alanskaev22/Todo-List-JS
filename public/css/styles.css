@@ -174,7 +174,7 @@ and (orientation: portrait) {
     button {
         display: block;
         width: 100%;
-        background-color: #f7f7f7;
+        background-color: #70c7dc;
         border-radius: 1.25rem;
         opacity: 100%;
         -webkit-appearance: none;
