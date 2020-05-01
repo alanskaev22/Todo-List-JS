@@ -45,7 +45,7 @@ const item1 = new Item({
   name: "Welcome to your Todo list 👋",
 });
 const item2 = new Item({
-  name: "Click ➕ to add new Item",
+  name: "Click ^ to add new Item",
 });
 const item3 = new Item({
   name: "👈 Select this checkbox to delete an item",
