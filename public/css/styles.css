@@ -59,8 +59,10 @@ form.item {
 }
 
 button {
-  min-height: 50px;
-  min-width: 50px;
+  vertical-align: middle;
+  text-align: center;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border-color: transparent;
   background-color: #142850;
@@ -69,6 +71,7 @@ button {
   padding-bottom: 6px;
   border-width: 0;
 }
+
 
 input[type="text"] {
   text-align: center;
@@ -118,7 +121,7 @@ and (orientation : portrait) {
   }
   button{
     -webkit-border-radius:0;
-    display: block;
+    border-radius: 50%;
     -webkit-appearance: none;
   }
 }
