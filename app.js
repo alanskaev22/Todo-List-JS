@@ -104,7 +104,7 @@ app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
         res.redirect(`/${customListName}`);
       } else {
         res.render("list", {
-          listTitle: `${_.capitalize(customListName)} List`,
+          listTitle: `${_.capitalize(customListName)}`,
           newItems: results.items,
           endpoint: `/${customListName}`,
           deleteEndpoint: Endpoints.DELETE,
@@ -116,26 +116,24 @@ app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
 
 app.post(Endpoints.DELETE, (req, res) => {
   let checkedItemId = req.body.checkbox;
-  const redirectURL = req.headers.referer;
-  let route = redirectURL.replace("http://localhost:3000", "");
+  const listTitle = req.body.listTitle;
 
-  if (route === "/") {
+  if (listTitle === "Today") {
     Item.findByIdAndDelete(checkedItemId, (err) => {
       if (err) {
         console.log(err);
       } else {
         console.log(`SUCCESSFULLY DELETED ITEM WITH ID ${checkedItemId}`);
-        res.redirect(route);
+        res.redirect("/");
       }
     });
   } else {
-    let customeListName = route.replace("/", "");
     List.findOneAndUpdate(
-      { name: customeListName },
+      { name: listTitle },
       { $pull: { items: { _id: checkedItemId } } },
       (err, results) => {
         if (!err) {
-          res.redirect(route);
+          res.redirect("/" + listTitle);
         }
       }
     );
