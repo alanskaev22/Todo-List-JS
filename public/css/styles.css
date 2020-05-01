@@ -1,4 +1,5 @@
 html {
+  display: block;
   background-color: #00a8cc;
   background-image: -webkit-linear-gradient(75deg, #142850 30%, #00a8cc 30%);
   min-height: 100vh;
@@ -115,6 +116,10 @@ and (orientation : portrait) {
   input[type="text"]:focus {
     outline: none;
     box-shadow: none;
+  }
+  button{
+    display: block;
+    width: 100%;
   }
 }
 /*  button{*/
