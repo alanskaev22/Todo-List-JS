@@ -115,12 +115,12 @@ and (orientation : portrait) {
     max-width: 100%;
     -webkit-appearance: none;
   }
+
+  input[type="text"] {
+    max-width: 90%;
+    -webkit-appearance: none;
+  }
 }
-/*  }*/
-/*  input[type="text"] {*/
-/*    max-width: 85%;*/
-/*    -webkit-appearance: none;*/
-/*  }*/
 /*  button{*/
 /*    text-align: center;*/
 /*    width: 40px;*/
