@@ -177,6 +177,8 @@ and (orientation: portrait) {
         background-color: #f7f7f7;
         border-radius: 1.25rem;
         opacity: 100%;
+        -webkit-appearance: none;
+
     }
 }
 
