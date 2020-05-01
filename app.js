@@ -19,7 +19,7 @@ const Endpoints = {
 
 // Mongo Connection
 mongoose.connect(
-  "mongodb+srv://Admin:Alan_Admin@todocluster-okiac.mongodb.net/todolistDB",
+  "mongodb+srv://alan_admin:alan_admin@todo-cluster-axvqp.mongodb.net/todolistDB",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
