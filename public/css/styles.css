@@ -109,7 +109,6 @@ and (orientation : portrait) {
     -webkit-appearance: none;
   }
   .box{
-    display: block;
     max-width: 100%;
     -webkit-appearance: none;
   }
@@ -118,7 +117,7 @@ and (orientation : portrait) {
     -webkit-appearance: none;
   }
   button{
-
+    display: block;
     -webkit-appearance: none;
   }
 }
