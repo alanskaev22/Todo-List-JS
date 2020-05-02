@@ -52,6 +52,7 @@ const item3 = new Item({
 });
 
 const defaultItems = [item1, item2, item3];
+let recentlyVisited = [];
 
 let newItem;
 
@@ -69,6 +70,7 @@ app.get(Endpoints.HOMEPAGE, function (req, res) {
       res.redirect(Endpoints.HOMEPAGE);
     } else {
       res.render("list", {
+        recentlyVisited: recentlyVisited,
         listTitle: "Today",
         newItems: results,
         endpoint: Endpoints.HOMEPAGE,
@@ -92,6 +94,29 @@ app.post(Endpoints.HOMEPAGE, (postReq, postRes) => {
 app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
   const customListName = _.capitalize(req.params.customListName);
 
+  if (!recentlyVisited.includes(customListName) && recentlyVisited.length < 4) {
+    recentlyVisited.push(customListName);
+  } else if (
+    recentlyVisited.includes(customListName) &&
+    recentlyVisited.length < 4
+  ) {
+    _.remove(recentlyVisited, (n) => n === customListName);
+    recentlyVisited.push(customListName);
+  } else if (
+    !recentlyVisited.includes(customListName) &&
+    recentlyVisited.length === 4
+  ) {
+    _.remove(recentlyVisited, (n) => n === customListName);
+    recentlyVisited.splice(0, 1);
+    recentlyVisited.push(customListName);
+  } else if (
+    recentlyVisited.includes(customListName) &&
+    recentlyVisited.length === 4
+  ) {
+    _.remove(recentlyVisited, (n) => n === customListName);
+    recentlyVisited.push(customListName);
+  }
+
   List.findOne({ name: customListName }, (err, results) => {
     if (!err) {
       if (!results) {
@@ -104,6 +129,7 @@ app.get(Endpoints.CUSTOMLISTNAME, (req, res) => {
         res.redirect(`/${customListName}`);
       } else {
         res.render("list", {
+          recentlyVisited: recentlyVisited,
           listTitle: `${_.capitalize(customListName)}`,
           newItems: results.items,
           endpoint: `/${customListName}`,
