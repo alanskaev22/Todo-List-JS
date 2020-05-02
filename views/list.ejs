@@ -4,28 +4,40 @@
 
 <body>
 
-<div class="section">
-<div class="box" id="heading">
-    <h1> <%= listTitle %> List</h1>
-</div>
-
-<div class="box">
-    <% newItems.forEach( item =>{ %>
-        <form class="deleteItem" action="<%= deleteEndpoint %>" method="post">
-    <div class="item">
-        <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
-        <p><%= item.name %></p>
-        <input type="hidden" value="<%= listTitle %>" name="listTitle">
+<div class="navbar-main">
+    <div class="navbar-box">
+        <ul>
+            <li>Most Recent</li>
+            <li class="nav-item"><a href="/">Today's List</a></li>
+            <% if(recentlyVisited.length > 0){recentlyVisited.forEach(site=>{ %>
+            <li class="nav-item"><a href="/<%= site %> "> <%= site %> List</a></li>
+           <% })} %>
+        </ul>
     </div>
-        </form>
-<% }) %>
-
-    <form class="item" action="<%= endpoint %>" method="post">
-        <input type="text" name="newItem" placeholder="Add New Item" autocomplete="off" autofocus>
-        <button type="submit" name="submit"><i class="fas fa-chevron-circle-up fa9x icon"></i></button>
-    </form>
-
 </div>
+
+<div class="section">
+    <div class="box" id="heading">
+        <h1> <%= listTitle %> List</h1>
+    </div>
+
+    <div class="box">
+        <% newItems.forEach( item =>{ %>
+            <form class="deleteItem" action="<%= deleteEndpoint %>" method="post">
+                <div class="item">
+                    <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
+                    <p><%= item.name %></p>
+                    <input type="hidden" value="<%= listTitle %>" name="listTitle">
+                </div>
+            </form>
+        <% }) %>
+
+        <form class="item" action="<%= endpoint %>" method="post">
+            <input type="text" name="newItem" placeholder="Add New Item" autocomplete="off" autofocus>
+            <button type="submit" name="submit"><i class="fas fa-chevron-circle-up fa9x icon"></i></button>
+        </form>
+
+    </div>
 </div>
 <%- include("footer") -%>
 
