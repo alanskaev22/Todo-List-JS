@@ -227,6 +227,10 @@ and (orientation: portrait) {
         appearance: none;
         outline: none;
     }
+    .navbar-main{
+        height: 13rem;
+        margin-bottom: 1rem;
+    }
 }
 
 
