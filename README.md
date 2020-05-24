@@ -8,7 +8,7 @@ Built with
 
 Hosted on heroku & mongo atlas.
 
-To create or access previosuly created list, add list name to url parameters, for example:
+To create or access previously created list, add list name to url parameters, for example:
 
 [https://todo-alanskaev.herokuapp.com/Work](https://todo-alanskaev.herokuapp.com/Work)
 
